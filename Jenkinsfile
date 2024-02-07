@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'my-python-flask-app'
-        DOCKER_HUB_USERNAME = credentials('docker-hub-username')
-        DOCKER_HUB_PASSWORD = credentials('docker-hub-password')
+        DOCKER_HUB_USERNAME = 'regalflit0042'
+        DOCKER_HUB_PASSWORD = 'Regalflit@0042'
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Push to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
+                
                     sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
                     sh "docker tag $IMAGE_NAME $DOCKER_HUB_USERNAME/$IMAGE_NAME"
                     sh "docker push $DOCKER_HUB_USERNAME/$IMAGE_NAME"
@@ -23,5 +23,5 @@ pipeline {
             }
         }
     }
-}
+
 
